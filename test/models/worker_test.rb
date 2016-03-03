@@ -11,7 +11,14 @@ class WorkerTest < ActiveSupport::TestCase
       Datum.create! label: "data-#{i}"
     end
 
-    Worker.warifui!
+    table = {
+        'Alice' => 1,
+        'Bob' => 2,
+        'Chris' => 5,
+        'Dave' => 3,
+    }
+
+    Worker.warifui!(table)
 
     data_alice = alice.reload.data.order(:id).pluck(:label)
     assert_equal %w(data-1), data_alice
@@ -24,5 +31,7 @@ class WorkerTest < ActiveSupport::TestCase
 
     data_dave = dave.reload.data.order(:id).pluck(:label)
     assert_equal %w(data-9 data-10 data-11), data_dave
+
+    assert_equal [], Datum.where(worker_id: nil)
   end
 end
