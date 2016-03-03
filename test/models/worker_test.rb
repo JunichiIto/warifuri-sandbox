@@ -47,7 +47,7 @@ class WorkerTest < ActiveSupport::TestCase
 
     assert_raises(RuntimeError) { Worker.warifui!(table) }
 
-    # Assert rollback
+    # Assert rollbacked
     assert_equal [], Datum.assigned
   end
 
